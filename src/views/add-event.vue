@@ -1,4 +1,5 @@
 <template>
+  <IonPage>
   <div class="center">
     <ion-card>
       <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
@@ -12,6 +13,7 @@
       </ion-card-content>
     </ion-card>
   </div>
+  </IonPage>
 </template>
 
 <style lang="css">
@@ -21,11 +23,7 @@
     align-items: center;
   }
 </style>
-<script lang="ts">
-  import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/vue';
+<script setup>
+  import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonPage } from '@ionic/vue';
   import { defineComponent } from 'vue';
-
-  export default defineComponent({
-    components: { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle },
-  });
 </script>
