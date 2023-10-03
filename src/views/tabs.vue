@@ -32,7 +32,6 @@ import {
   IonPage,
   IonRouterOutlet,
 } from "@ionic/vue";
-import { ellipse, square, triangle } from "ionicons/icons";
 import { ref } from "vue";
 import add from "../icons/add.svg";
 import chat from "../icons/chat.svg";
