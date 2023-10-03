@@ -2,34 +2,26 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="tab1" href="/tabs/add-event">
-          <ion-icon aria-hidden="true" :icon="triangle" />
-          <ion-label>Ajouter un evenement</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="tab2" href="/tabs/search">
-          <ion-icon aria-hidden="true" :icon="ellipse" />
-          <ion-label>Search</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="tab3" href="/tabs/home">
-          <ion-icon aria-hidden="true" :icon="square" />
-          <ion-label>Accueil</ion-label>
-        </ion-tab-button>
-        <ion-tab-button tab="tab4" href="/tabs/message">
-          <ion-icon aria-hidden="true" :icon="square" />
-          <ion-label>Message</ion-label>
-        </ion-tab-button>
-        <ion-tab-button tab="tab5" href="/tabs/account">
-          <ion-icon aria-hidden="true" :icon="square" />
-          <ion-label>Compte</ion-label>
+      <ion-tab-bar slot="bottom" class="icon-container">
+        <ion-tab-button
+          v-for="tab in navBar"
+          :tab="tab.tabNumber"
+          :href="tab.link"
+        >
+          <ion-icon class="icon-color" aria-hidden="true" :icon="tab.icon" />
+          <ion-label style="white-space: pre-line;">{{ tab.title }}</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>
 </template>
 
+<style>
+.icon-container {
+  display: flex;
+  flex-direction: row;
+}
+</style>
 <script setup>
 import {
   IonTabBar,
@@ -68,16 +60,16 @@ const navBar = ref([
     tabNumber: "tab3",
   },
   {
-    title: "Ajouter un evenement",
-    icon: add,
-    link: "/tabs/add-event",
-    tabNumber: "tab1",
+    title: "Conversation",
+    icon: chat,
+    link: "/tabs/message",
+    tabNumber: "tab4",
   },
   {
-    title: "Ajouter un evenement",
-    icon: add,
-    link: "/tabs/add-event",
-    tabNumber: "tab1",
+    title: "Compte",
+    icon: profile,
+    link: "/tabs/account",
+    tabNumber: "tab5",
   },
 ]);
 </script>
