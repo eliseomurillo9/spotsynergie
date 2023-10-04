@@ -1,33 +1,36 @@
 <template>
-  <ion-page>
-    <Header />
-    <Searchbar />
-  </ion-page>
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search...">
+    </div>
+    <section class="page-container">
+    </section>
 </template>
 
 <script setup lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import ExploreContainer from '@/components/ExploreContainer.vue';
-import Header from '@/components/Header.vue';
-import Searchbar from '@/components/Searchbar.vue';
-
 </script>
+
 <style>
-  .header-container{
+.header-container{
     display: flex;
     justify-content: space-between;
     padding: 2rem;
-  }
+}
 
-  .search-bar {
+.ion-page{
+    justify-content: start;
+}
+
+.search-bar {
     border-radius: 5px;
     display: flex;
     align-items: center;
     padding: 10px;
     margin: 10px;
-  }
+}
 
-  .search-bar input {
+.search-bar input {
     flex: 1;
     font-size: 16px;
     padding: 10px;
@@ -37,6 +40,6 @@ import Searchbar from '@/components/Searchbar.vue';
     margin: 10px;
     background-color: azure;
     color: black;
-  }
+}
 
 </style>
