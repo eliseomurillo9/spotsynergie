@@ -30,7 +30,7 @@
 
     </section>
     <section class="subject2">
-      <h1>Cinéma</h1>
+      <h1>Cinémas</h1>
       <div class="card-container ion-no-padding">
         <div class="card">
             <img src="https://via.placeholder.com/150" alt="Placeholder Image">
@@ -106,6 +106,15 @@ import Searchbar from '@/components/Searchbar.vue';
 
 h1{
   margin-left: 30px;
+  color: #ff0000;
+  font-weight: bold;
+
+}
+
+h2{
+  margin-left: 30px;
+  color: #03DAC6; 
+  font-weight: bold;
 }
 
 .card-container {
@@ -117,8 +126,8 @@ h1{
 }
 
 .card {
+  background-color: #202847;
   min-width: 200px;
-  border: 1px solid #ccc;
   border-radius: 30px;
   overflow: hidden;
   margin: 10px 20px;
@@ -126,9 +135,13 @@ h1{
 }
 
 .card img {
-    width: 100%;
+    width: 90%;
     height: 150px;
-    object-fit: cover;
+    border-radius: 15px;
+    margin: 10px 10px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .card:last-child {
@@ -136,7 +149,7 @@ h1{
 }
 
 .card-content {
-    padding: 20px;
+    padding: 10px 10px 20px 20px;
 }
 
 .card-content h2 {
