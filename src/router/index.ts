@@ -36,7 +36,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/account.vue')
       }
     ]
-  }
+  },
+  {
+        path: '/chats',
+        component: () => import('@/views/chat-list.vue')
+      },
 ]
 
 const router = createRouter({
