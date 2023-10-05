@@ -5,19 +5,9 @@
       <h2>No eventd availables</h2>
     </section>
     <section v-else class="page-container">
-    <Header :dateSelected="dateFormat"/>
-    <section v-if="!getEventsFromMock[eventNumber]" class="error-message">
-      <h2>No eventd availables</h2>
-    </section>
-    <section v-else class="page-container">
       <div
         v-if="getEventsFromMock.length > 0"
-        v-if="getEventsFromMock.length > 0"
         class="img-container"
-        :style="{
-          backgroundImage:
-            'url(' + getEventsFromMock[eventNumber]?.avatar + ')',
-        }"
         :style="{
           backgroundImage:
             'url(' + getEventsFromMock[eventNumber]?.avatar + ')',
@@ -28,19 +18,12 @@
         <div class="info-container" v-if="showInfo">
           <h2>{{ getEventsFromMock[eventNumber]?.name }}</h2>
           <span>{{ getEventsFromMock[eventNumber]?.description }}</span>
-          <h2>{{ getEventsFromMock[eventNumber]?.name }}</h2>
-          <span>{{ getEventsFromMock[eventNumber]?.description }}</span>
         </div>
       </div>
       <div class="buttons-container">
         <button class="btn" @click="swipeFunction()">
-        <button class="btn" @click="swipeFunction()">
           <ion-icon aria-hidden="true" :icon="closeIcon" />
         </button>
-        <button
-          class="btn btn-yes"
-          @click="swipeFunction(true, getEventsFromMock[eventNumber].id)"
-        >
         <button
           class="btn btn-yes"
           @click="swipeFunction(true, getEventsFromMock[eventNumber].id)"
@@ -53,7 +36,6 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed } from "vue";
 import { ref, reactive, onMounted, computed } from "vue";
 import closeIcon from "../icons/close.svg";
 import checkIcon from "../icons/check.svg";
@@ -68,7 +50,6 @@ import {
   IonContent,
   IonIcon,
 } from "@ionic/vue";
-const getEventsFromMock = ref([]);
 const getEventsFromMock = ref([]);
 const showInfo = ref(false);
 const eventNumber = ref(0);
@@ -144,7 +125,6 @@ const swipeFunction = (response, id) => {
 .card-active {
   height: 40rem;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   transition: 0.5s ease-in-out;
 }
 .card-active::after {
@@ -160,10 +140,6 @@ const swipeFunction = (response, id) => {
     rgba(27, 33, 41, 1) 0%,
     rgba(0, 0, 255, 0) 100%
   );
-}
-
-.error-message{
-    margin: auto;
 }
 
 .error-message{
