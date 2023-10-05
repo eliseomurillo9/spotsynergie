@@ -1,6 +1,6 @@
 <template>
     <div class="search-bar">
-        <input type="text" id="search-input" placeholder="Search...">
+        <input type="text" id="search-input" placeholder="Cinéma, Musée, Sports...">
     </div>
     <section class="page-container">
     </section>
