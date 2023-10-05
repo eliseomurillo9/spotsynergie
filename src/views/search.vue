@@ -106,7 +106,7 @@ import Searchbar from '@/components/Searchbar.vue';
 
 h1{
   margin-left: 30px;
-  color: #ff0000;
+  color: #da4e4e;
   font-weight: bold;
 
 }
