@@ -1,27 +1,33 @@
 <template>
   <ion-page>
-      <Header />
-    <section class="page-container">
+    <Header :dateSelected="dateFormat"/>
+    <section v-if="!getEventsFromMock[eventNumber]" class="error-message">
+      <h2>No eventd availables</h2>
+    </section>
+    <section v-else class="page-container">
       <div
+        v-if="getEventsFromMock.length > 0"
         class="img-container"
+        :style="{
+          backgroundImage:
+            'url(' + getEventsFromMock[eventNumber]?.avatar + ')',
+        }"
         :class="{ 'card-active': showInfo }"
         @click="showInfo = !showInfo"
       >
         <div class="info-container" v-if="showInfo">
-          <h2>HELLO IM THE EVENT INFO</h2>
-          <span
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Dignissimos amet sint nostrum labore laboriosam minima odio vitae,
-            dolorem, rerum hic nesciunt totam eos expedita dolorum dicta nobis
-            quam, repudiandae asperiores!</span
-          >
+          <h2>{{ getEventsFromMock[eventNumber]?.name }}</h2>
+          <span>{{ getEventsFromMock[eventNumber]?.description }}</span>
         </div>
       </div>
       <div class="buttons-container">
-        <button class="btn" @click="swipeFunction(true)">
+        <button class="btn" @click="swipeFunction()">
           <ion-icon aria-hidden="true" :icon="closeIcon" />
         </button>
-        <button class="btn btn-yes" @click="swipeFunction(false)">
+        <button
+          class="btn btn-yes"
+          @click="swipeFunction(true, getEventsFromMock[eventNumber].id)"
+        >
           <ion-icon aria-hidden="true" :icon="checkIcon" />
         </button>
       </div>
@@ -30,10 +36,11 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted, computed } from "vue";
 import closeIcon from "../icons/close.svg";
 import checkIcon from "../icons/check.svg";
-import Header from '../components/Header.vue'
+import Header from "../components/Header.vue";
+import { setEvent, filterEvents } from "../services/eventService.js";
 import {
   IonPage,
   IonHeader,
@@ -42,11 +49,35 @@ import {
   IonContent,
   IonIcon,
 } from "@ionic/vue";
-
+const getEventsFromMock = ref([]);
 const showInfo = ref(false);
-const swipeFunction = (response) => {
-  console.log("I DONT WANNA GO");
+const eventNumber = ref(0);
+
+
+onMounted(async () => {
+  getEventsFromMock.value = await filterEvents();
+});
+
+const swipeFunction = (response, id) => {
+  if (response) {
+    setEvent(id);
+    eventNumber.value++;
+  } else if (getEventsFromMock.value[eventNumber.value + 1]) {
+    eventNumber.value = null;
+  }
+  eventNumber.value++;
 };
+
+const actualDate = ref(new Date());
+const dateFormat = ref(
+  `${actualDate.value.getFullYear()}-${
+    actualDate.value.getMonth() + 1
+  }-${actualDate.value.getDate().toLocaleString("en-US", {
+    minimumIntegerDigits: 2,
+  })}`
+);
+
+console.log('dateFormat', dateFormat.value);
 </script>
 
 <style>
@@ -67,7 +98,6 @@ const swipeFunction = (response) => {
   height: 30rem;
   margin: auto;
   align-self: center;
-  background-image: url("../assets/tour_Eiffel.jpeg");
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
@@ -101,7 +131,7 @@ const swipeFunction = (response) => {
 
 .card-active {
   height: 40rem;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   transition: 0.5s ease-in-out;
 }
 .card-active::after {
@@ -117,6 +147,10 @@ const swipeFunction = (response) => {
     rgba(27, 33, 41, 1) 0%,
     rgba(0, 0, 255, 0) 100%
   );
+}
+
+.error-message{
+    margin: auto;
 }
 
 @media (max-width: 460px) {
