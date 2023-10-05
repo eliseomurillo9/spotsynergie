@@ -1,5 +1,5 @@
 <template>
-  <div class="card-container">
+  <div class="card-container" @click="redirectToChat">
     <img v-if="image?.link" src="@/assets/eliseo.png" :alt="image.alt" />
     <ion-icon
       v-else
@@ -16,6 +16,7 @@
 
 <script setup>
 import { ref, defineProps } from "vue";
+import { useRouter } from "vue-router";
 import { IonIcon } from "@ionic/vue";
 import profileIcon from "../icons/profile.svg";
 const props = defineProps({
@@ -24,6 +25,10 @@ const props = defineProps({
   image: Object,
 });
 
+const router = useRouter();
+const redirectToChat = () => {
+  router.push({ path: "/chat" });
+};
 </script>
 <style>
 .card-container {
@@ -34,10 +39,10 @@ const props = defineProps({
   gap: 2rem;
 }
 
-.card-container > img{
-    height: 4rem;
-    border-radius: 100%;
-    margin: auto 0 auto 0;
+.card-container > img {
+  height: 4rem;
+  border-radius: 100%;
+  margin: auto 0 auto 0;
 }
 .information-div > h2 {
   color: #ba0707;

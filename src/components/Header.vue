@@ -30,17 +30,15 @@
 <script setup>
 import { IonIcon } from "@ionic/vue";
 import dotLocationIcon from "../icons/dot-location.svg";
-import { ref, reactive } from "vue";
+import { ref, reactive, defineProps } from "vue";
 
-const actualDate = ref(new Date());
-const dateFormat = ref(
-  `${actualDate.value.getFullYear()}-${
-    actualDate.value.getMonth() + 1
-  }-${actualDate.value.getDate().toLocaleString("en-US", {
-    minimumIntegerDigits: 2,
-  })}`
-);
-const selectedDate = ref(dateFormat);
+const props = defineProps({
+  dateSelected: String
+})
+
+
+const selectedDate = ref(props.dateSelected);
+
 
 const distanceRatio = ref(["2 Km", "5 Km", "8 Km", "10 Km"]);
 

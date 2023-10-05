@@ -1,128 +1,70 @@
 <template>
   <ion-page>
-    <Header />
+    <Header :dateSelected="dateFormat" />
     <Searchbar />
-    <section class="subject1">
-      <h1>Musées</h1>
+    <section class="subject1" v-for="place in places" :key="place.id">
+      <h2>{{ place.category }}</h2>
       <div class="card-container ion-no-padding">
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Placeholder Image">
+        <div class="card" v-for="(spot, i) in place.places" :key="i">
+          <img :src="spot.image" alt="Placeholder Image" />
           <div class="card-content">
-              <h2>Card1</h2>
-              <p>This is a simple card example. You can put any content here.</p>
-          </div>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Placeholder Image">
-          <div class="card-content">
-              <h2>Card2</h2>
-              <p>This is a simple card example. You can put any content here.</p>
-          </div>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Placeholder Image">
-          <div class="card-content">
-              <h2>Card3</h2>
-              <p>This is a simple card example. You can put any content here.</p>
+            <h2>{{ spot.name }}</h2>
+            <p>{{ spot.description }}</p>
           </div>
         </div>
       </div>
-
-    </section>
-    <section class="subject2">
-      <h1>Cinémas</h1>
-      <div class="card-container ion-no-padding">
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Placeholder Image">
-          <div class="card-content">
-              <h2>Card1</h2>
-              <p>This is a simple card example. You can put any content here.</p>
-          </div>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Placeholder Image">
-          <div class="card-content">
-              <h2>Card2</h2>
-              <p>This is a simple card example. You can put any content here.</p>
-          </div>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Placeholder Image">
-          <div class="card-content">
-              <h2>Card3</h2>
-              <p>This is a simple card example. You can put any content here.</p>
-          </div>
-        </div>
-      </div>
-
-    </section>
-    <section class="subject3">
-      <h1>Restaurants</h1>
-      <div class="card-container ion-no-padding">
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Placeholder Image">
-          <div class="card-content">
-              <h2>Card1</h2>
-              <p>This is a simple card example. You can put any content here.</p>
-          </div>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Placeholder Image">
-          <div class="card-content">
-              <h2>Card2</h2>
-              <p>This is a simple card example. You can put any content here.</p>
-          </div>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Placeholder Image">
-          <div class="card-content">
-              <h2>Card3</h2>
-              <p>This is a simple card example. You can put any content here.</p>
-          </div>
-        </div>
-      </div>
-
     </section>
   </ion-page>
 </template>
 
-<script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
-import Header from '@/components/Header.vue';
-import Searchbar from '@/components/Searchbar.vue';
+<script setup>
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+} from "@ionic/vue";
+import Header from "@/components/Header.vue";
+import Searchbar from "@/components/Searchbar.vue";
+import { dateFormat } from "@/composables/dates.js";
+import { getPlaces } from "../services/placesService.js";
+import { onMounted, ref } from "vue";
 
+const places = ref([]);
+onMounted(async () => {
+  places.value = await getPlaces();
+  console.log("palces", await places.value);
+});
 </script>
 <style>
-.ion-page{
+.ion-page {
   overflow-y: auto;
 }
 
-.header-container{
+.header-container {
   display: flex;
   justify-content: space-between;
   padding: 2rem;
 }
 
-h1{
+h1 {
   margin-left: 30px;
   color: #da4e4e;
   font-weight: bold;
-
 }
 
-h2{
+h2 {
   margin-left: 30px;
-  color: #03DAC6; 
+  color: #03dac6;
   font-weight: bold;
 }
 
 .card-container {
-    display: flex;
-    overflow-x: auto; /* Permet le défilement horizontal */
-    width: 100vw; /* 100% de la largeur de la vue (viewport) */
-    min-width: 100%; /* Assure que le conteneur a une largeur minimale égale à la largeur de l'écran */
-
+  display: flex;
+  overflow-x: auto; /* Permet le défilement horizontal */
+  width: 100vw; /* 100% de la largeur de la vue (viewport) */
+  min-width: 100%; /* Assure que le conteneur a une largeur minimale égale à la largeur de l'écran */
 }
 
 .card {
@@ -131,34 +73,33 @@ h2{
   border-radius: 30px;
   overflow: hidden;
   margin: 10px 20px;
-
 }
 
 .card img {
-    width: 90%;
-    height: 150px;
-    border-radius: 15px;
-    margin: 10px 10px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
+  width: 90%;
+  height: 150px;
+  border-radius: 15px;
+  margin: 10px 10px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .card:last-child {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 .card-content {
-    padding: 10px 10px 20px 20px;
+  padding: 10px 10px 20px 20px;
 }
 
 .card-content h2 {
-    margin: 0 0 10px;
-    font-size: 24px;
+  margin: 0 0 10px;
+  font-size: 24px;
 }
 
 .card-content p {
-    margin: 0;
-    font-size: 16px;
+  margin: 0;
+  font-size: 16px;
 }
 </style>
