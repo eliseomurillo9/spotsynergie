@@ -29,7 +29,8 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'message',
-        component: () => import('@/views/message.vue')
+        component: () => import('@/views/chat-list.vue')
+        
       },
       {
         path: 'account',
@@ -38,8 +39,8 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-        path: '/chats',
-        component: () => import('@/views/chat-list.vue')
+        path: '/chat',
+        component: () => import('@/views/message.vue')
       },
 ]
 

@@ -41,6 +41,7 @@ import closeIcon from "../icons/close.svg";
 import checkIcon from "../icons/check.svg";
 import Header from "../components/Header.vue";
 import { setEvent, filterEvents } from "../services/eventService.js";
+import { dateFormat } from '../composables/dates.js';
 import {
   IonPage,
   IonHeader,
@@ -62,22 +63,14 @@ const swipeFunction = (response, id) => {
   if (response) {
     setEvent(id);
     eventNumber.value++;
-  } else if (getEventsFromMock.value[eventNumber.value + 1]) {
+  } else if (!getEventsFromMock.value[eventNumber.value]) {
     eventNumber.value = null;
+  } else {
+    eventNumber.value++;
   }
-  eventNumber.value++;
 };
 
-const actualDate = ref(new Date());
-const dateFormat = ref(
-  `${actualDate.value.getFullYear()}-${
-    actualDate.value.getMonth() + 1
-  }-${actualDate.value.getDate().toLocaleString("en-US", {
-    minimumIntegerDigits: 2,
-  })}`
-);
 
-console.log('dateFormat', dateFormat.value);
 </script>
 
 <style>
